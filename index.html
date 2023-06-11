@@ -14,7 +14,7 @@
         }
         textarea {
             width: 295px;
-            height: 80px;
+            height: 50px;
             resize: none;
             vertical-align: middle;
             
@@ -30,12 +30,12 @@
         }
         .button {
             margin: 0 auto;
-            width: 100px;
+            width: 300px;
         }
         .makeResult {
-            margin: 0 auto;
+            
             width: 100px;
-            height: 50px;
+            height: 30px;
         }
         .line {
             height: 20px;
@@ -43,10 +43,40 @@
         .line10 {
             height: 10px;
         }
+        label {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        select {
+            width: 80px;
+            height: 30px;
+            margin-right: 10px;
+        }
     </style>
 </head>
-<body>
+<body onload="setTomorrowDayOfWeek()">
     <script>
+        function setTomorrowDayOfWeek() {
+            // 현재 날짜 가져오기
+            var today = new Date();
+
+            // 내일 날짜 계산
+            var tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            // 요일 목록
+            var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+
+            // 내일 요일 가져오기
+            var tomorrowDayOfWeek = daysOfWeek[tomorrow.getDay()];
+
+            // select 요소 가져오기
+            var select = document.getElementById('daySelect');
+
+            // 내일 요일을 기본값으로 설정
+            select.value = tomorrowDayOfWeek;
+        }
+
         function get_tmrw_weekday() {
             let days = ['월', '화', '수', '목', '금', '토', '일']
             let today = new Date();
@@ -56,8 +86,8 @@
         }
 
         function add() {
-            var tomorrow_weekday = get_tmrw_weekday();
-
+            // var tomorrow_weekday = get_tmrw_weekday();
+            var tomorrow_weekday = getElementById("select_weekday").value;
             let area1 = document.getElementById("area1").value;
             let area2 = document.getElementById("area2").value;
             let area3 = document.getElementById("area3").value;
@@ -98,6 +128,17 @@
         </div>
         <div class="line10"></div>
         <div class="button">
+            <label for="daySelect">요일 선택:</label>
+            <select id="daySelect">
+                <!-- 내일 요일을 옵션으로 추가 -->
+                <option value="일">일요일</option>
+                <option value="월">월요일</option>
+                <option value="화">화요일</option>
+                <option value="수">수요일</option>
+                <option value="목">목요일</option>
+                <option value="금">금요일</option>
+                <option value="토">토요일</option>
+            </select>
             <button class="makeResult" onclick="add();">Make</button>
         </div>
         <div class="line10"></div>
