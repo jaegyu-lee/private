@@ -64,12 +64,12 @@
             let area4 = document.getElementById("area4").value;
             //* area1.split(f"\n{tomorrow}")[1].split("\n\n")[0]
             
-            var tmrw_area1_meeting = String(String(area1).split(tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area2_meeting = String(String(area2).split(tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area3_meeting = String(String(area3).split(tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area4_meeting = String(String(area4).split(tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area1_meeting = String(String(area1).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area2_meeting = String(String(area2).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area3_meeting = String(String(area3).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area4_meeting = String(String(area4).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
 
-            document.getElementById("result").innerHTML = "1구역\n" + tmrw_area1_meeting + "\n" + "2구역\n" + tmrw_area2_meeting + "\n" + "3구역\n" + tmrw_area3_meeting + "\n" + "4구역\n" + tmrw_area4_meeting;
+            document.getElementById("result").innerHTML = "1구역" + tmrw_area1_meeting + "\n" + "2구역" + tmrw_area2_meeting + "\n" + "3구역" + tmrw_area3_meeting + "\n" + "4구역" + tmrw_area4_meeting;
             // document.getElementById("result").innerHTML = "hhhhh";
         }
         
