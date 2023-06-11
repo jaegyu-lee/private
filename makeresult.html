@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        textarea {
+            width: 300px;
+            height: 80px;
+            resize: none;
+            vertical-align: middle;
+            
+        }
+        p {
+            margin: 0 auto;
+            text-align: left;
+            font-size: 20px;
+        }
+        .main {
+            margin: 0 auto;
+            width: 300px;
+        }
+        .button {
+            margin: 0 auto;
+            width: 100px;
+        }
+        .makeResult {
+            margin: 0 auto;
+            width: 100px;
+            height: 50px;
+        }
+        .line {
+            height: 20px;
+        }
+        .line10 {
+            height: 10px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function get_tmrw_weekday() {
+            let days = ['월', '화', '수', '목', '금', '토', '일']
+            let today = new Date();
+            let tomorrow_weekday = days[today.getDay()];
+
+            return tomorrow_weekday
+        }
+
+        function add() {
+            var tomorrow_weekday = get_tmrw_weekday();
+
+            let area1 = document.getElementById("area1").value;
+            let area2 = document.getElementById("area2").value;
+            let area3 = document.getElementById("area3").value;
+            let area4 = document.getElementById("area4").value;
+            //* area1.split(f"\n{tomorrow}")[1].split("\n\n")[0]
+            
+            var tmrw_area1_meeting = String(String(area1).split(tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area2_meeting = String(String(area2).split(tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area3_meeting = String(String(area3).split(tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area4_meeting = String(String(area4).split(tomorrow_weekday)[1]).split("\n\n")[0];
+
+            document.getElementById("result").innerHTML = tmrw_area1_meeting;
+            // document.getElementById("result").innerHTML = "hhhhh";
+        }
+        
+    </script>
+
+    <div class="main">
+        <h1>다음날 만남 확인</h1>
+        <div>
+            <p>1번</p>
+            <textarea id="area1" rows="3"></textarea>
+        </div>
+        <div class="line"></div>
+        <div>
+            <p>2번</p>
+            <textarea id="area2"></textarea>
+        </div>
+        <div class="line"></div>
+        <div>    
+            <p>3번</p>
+            <textarea id="area3"></textarea>
+        </div>
+        <div class="line"></div>
+        <div>
+            <p>4번</p>
+            <textarea id="area4"></textarea>
+        </div>
+        <div class="line10"></div>
+        <div class="button">
+            <button class="makeResult" onclick="add();">Make</button>
+        </div>
+        <div class="line10"></div>
+        <textarea id="result"></textarea>
+    </div>
+    
+</body>
+</html>
