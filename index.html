@@ -4,112 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
-    <style>
-        body {
-            font-family: Helvetica, sans-serif;
-        }
-        h1 {
-            text-align: center;
-        }
-        textarea {
-            width: 295px;
-            height: 50px;
-            resize: none;
-            vertical-align: middle;
-            
-        }
-        p {
-            margin: 0 auto;
-            text-align: left;
-            font-size: 20px;
-        }
-        .main {
-            margin: 0 auto;
-            width: 300px;
-        }
-        .button {
-            margin: 0 auto;
-            width: 300px;
-        }
-        .makeResult {
-            
-            width: 100px;
-            height: 30px;
-        }
-        .line {
-            height: 20px;
-        }
-        .line10 {
-            height: 10px;
-        }
-        label {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        select {
-            width: 80px;
-            height: 30px;
-            margin-right: 10px;
-        }
-    </style>
+    
 </head>
 <body onload="setTomorrowDayOfWeek()">
-    <script>
-        function setTomorrowDayOfWeek() {
-            // 현재 날짜 가져오기
-            var today = new Date();
-
-            // 내일 날짜 계산
-            var tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-
-            // 요일 목록
-            var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-
-            // 내일 요일 가져오기
-            var tomorrowDayOfWeek = daysOfWeek[tomorrow.getDay()];
-
-            // select 요소 가져오기
-            var select = document.getElementById('daySelect');
-
-            // 내일 요일을 기본값으로 설정
-            select.value = tomorrowDayOfWeek;
-        }
-
-        function get_tmrw_weekday() {
-            let days = ['월', '화', '수', '목', '금', '토', '일']
-            let today = new Date();
-            let tomorrow_weekday = days[today.getDay()];
-
-            return tomorrow_weekday
-        }
-
-        function add() {
-            // var tomorrow_weekday = get_tmrw_weekday();
-            var tomorrow_weekday = getElementById("daySelect").value;
-            let area1 = document.getElementById("area1").value;
-            let area2 = document.getElementById("area2").value;
-            let area3 = document.getElementById("area3").value;
-            let area4 = document.getElementById("area4").value;
-            //* area1.split(f"\n{tomorrow}")[1].split("\n\n")[0]
-            
-            var tmrw_area1_meeting = String(String(area1).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area2_meeting = String(String(area2).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area3_meeting = String(String(area3).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area4_meeting = String(String(area4).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-
-            document.getElementById("result").innerHTML = "1구역" + tmrw_area1_meeting + "\n" + "2구역" + tmrw_area2_meeting + "\n" + "3구역" + tmrw_area3_meeting + "\n" + "4구역" + tmrw_area4_meeting;
-            // document.getElementById("result").innerHTML = "hhhhh";
-        }
-        
-    </script>
-
     <div class="main">
         <h1>다음날 만남 확인</h1>
+    </div>
+
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'home')">Leaf</button>
+        <button class="tablinks" onclick="openTab(event, 'about')">Meet</button>
+    </div>
+    
+
+    <div id="home" class="tabcontent">
         <div>
             <p>1번</p>
-            <textarea id="area1" rows="3"></textarea>
+            <textarea id="area1"></textarea>
         </div>
         <div class="line"></div>
         <div>
@@ -145,5 +58,167 @@
         <textarea id="result"></textarea>
     </div>
     
+
+    <div id="about" class="tabcontent">
+        <div>
+            <p>내용</p>
+            <textarea id="allText"></textarea>
+        </div>
+        <div class="line10"></div>
+        <div class="button">
+            <label for="month">날짜:</label>
+            <select id="month">
+                <!-- 내일의 월을 기본값으로 설정 -->
+                <script>
+                    var tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    var month = tomorrow.getMonth() + 1;
+                    var year = tomorrow.getFullYear();
+                    document.write('<option value="' + month + '">' + month + '</option>');
+                </script>
+                <option value="1">1월</option>
+                <option value="2">2월</option>
+                <option value="3">3월</option>
+                <option value="4">4월</option>
+                <option value="5">5월</option>
+                <option value="6">6월</option>
+                <option value="7">7월</option>
+                <option value="8">8월</option>
+                <option value="9">9월</option>
+                <option value="10">10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+            </select>
+            
+            <select id="day">
+                <!-- 내일의 날짜를 기본값으로 설정 -->
+                <script>
+                    var tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    var day = tomorrow.getDate();
+                    var month = tomorrow.getMonth() + 1;
+                    var year = tomorrow.getFullYear();
+                    document.write('<option value="' + day + '">' + day + '</option>');
+                </script>
+                <!-- 나머지 날짜들도 추가 -->
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="3">3</option>
+                <option value="31">31</option>
+            </select>
+            
+                <button class="makeResult" onclick="makeOnlyMeetings();">Make</button>
+                <div class="line10"></div>
+        </div>
+        <div>
+            <textarea id="result_new"></textarea>
+        </div>
+    </div>
+    <script>
+        document.getElementById('home').style.display = 'block';
+        function setTomorrowDayOfWeek() {
+            // 현재 날짜 가져오기
+            var today = new Date();
+
+            // 내일 날짜 계산
+            var tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            // 요일 목록
+            var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+
+            // 내일 요일 가져오기
+            var tomorrowDayOfWeek = daysOfWeek[tomorrow.getDay()];
+
+            // select 요소 가져오기
+            var select = document.getElementById('daySelect');
+
+            // 내일 요일을 기본값으로 설정
+            select.value = tomorrowDayOfWeek;
+        }
+
+        function add() {
+            // var tomorrow_weekday = get_tmrw_weekday();
+            let tomorrow_weekday = document.getElementById("daySelect").value;
+
+            // var tomorrow_weekday = select_weekday.options[select_weekday.selectedIndex].value
+            let area1 = document.getElementById("area1").value;
+            let area2 = document.getElementById("area2").value;
+            let area3 = document.getElementById("area3").value;
+            let area4 = document.getElementById("area4").value;
+            //* area1.split(f"\n{tomorrow}")[1].split("\n\n")[0]
+            
+            var tmrw_area1_meeting = String(String(area1).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area2_meeting = String(String(area2).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area3_meeting = String(String(area3).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
+            var tmrw_area4_meeting = String(String(area4).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
+
+            document.getElementById("result").innerHTML = "1구역" + tmrw_area1_meeting + "\n\n" + "2구역" + tmrw_area2_meeting + "\n\n" + "3구역" + tmrw_area3_meeting + "\n\n" + "4구역" + tmrw_area4_meeting;
+            // document.getElementById("result").innerHTML = "hhhhh";
+        }
+
+        function makeOnlyMeetings() {
+            let allText = document.getElementById("allText").value;
+
+            let targetText = String(allText).split("비오픈")[1]
+            let pickFruit = String(String(String(targetText).split("따기")[1]).split("상담")[0]).split("\n")
+            let talkFruit = String(String(String(targetText).split("상담")[1]).split("정파")[0]).split("\n")
+            let willTalkFruit = String(String(String(targetText).split("상담예정")[1]).split("타겟찾기")[0]).split("\n")
+            let meetFruit = String(String(String(targetText).split("타겟찾기")[1]).split("찾기")[0]).split("\n")
+
+            let pickList = []
+            let talkList = []
+            let willTalkList = []
+            let meetList = []
+
+            for (let i = 0; i < pickFruit.length; i++) {
+                if (pickFruit[i].includes("6.16")) {
+                    pickList.push(pickFruit[i]);
+                }
+            }
+            for (let j = 0; j < talkFruit.length; j++) {
+                if (talkFruit[j].includes("6.16")) {
+                    talkList.push(talkFruit[j]);
+                }
+            }
+            for (let k = 0; k < willTalkFruit.length; k++) {
+                if (willTalkFruit[k].includes("6.16")) {
+                    willTalkList.push(willTalkFruit[k]);
+                }
+            }
+            for (let l = 0; l < meetFruit.length; l++) {
+                if (meetFruit[l].includes("6.16")) {
+                    meetList.push(meetFruit[l]);
+                }
+            }
+
+            result = "따기\n" + pickList.join("\n") + "\n\n상담\n" + talkList.join("\n") + "\n\n상담예정\n" + willTalkList.join("\n") + "\n\n타겟찾기\n" + meetList.join("\n") + "\n"
+            document.getElementById("result_new").innerHTML = result;
+        }
+        
+        // 초기 탭 설정
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            // 모든 탭 내용 숨기기
+            tabcontent = document.getElementsByClassName('tabcontent');
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = 'none';
+            }
+
+            // 모든 탭 버튼 비활성화
+            tablinks = document.getElementsByClassName('tablinks');
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(' active', '');
+            }
+
+            // 선택한 탭 내용 보여주기
+            document.getElementById(tabName).style.display = 'block';
+
+            // 선택한 탭 버튼 활성화
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+
 </body>
 </html>

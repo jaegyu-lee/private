@@ -1,0 +1,88 @@
+.tab {
+    width: 300px;
+    height: 50px;
+    overflow: hidden;
+    background-color: #ffffff;
+    margin: 0 auto;
+  }
+
+.tab button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 146px;
+    height: 50px;
+    font-size: 20px;
+    
+}
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+  /* 각 탭 내용 스타일링 */
+.tabcontent {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    margin: 0 auto;
+    width: 300px;
+}
+
+#month {
+    width: 50px;
+}
+
+#day {
+    width: 50px;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+}
+h1 {
+    text-align: center;
+}
+textarea {
+    width: 295px;
+    height: 50px;
+    resize: none;
+    vertical-align: middle;
+    
+}
+p {
+    margin: 0 auto;
+    text-align: left;
+    font-size: 20px;
+}
+.button {
+    margin: 0 auto;
+    width: 300px;
+    
+}
+.makeResult {
+    
+    width: 100px;
+    height: 30px;
+}
+.line {
+    height: 20px;
+}
+.line10 {
+    height: 10px;
+}
+label {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+select {
+    width: 80px;
+    height: 30px;
+    margin-right: 3px;
+}
