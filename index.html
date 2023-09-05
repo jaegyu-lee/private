@@ -99,20 +99,23 @@
                     var tomorrow = new Date();
                     tomorrow.setDate(tomorrow.getDate() + 1);
                     var day = tomorrow.getDate();
+                    if (day < 10) {
+                        day = "0" + day
+                    }
                     var month = tomorrow.getMonth() + 1;
                     var year = tomorrow.getFullYear();
                     document.write('<option value="' + day + '">' + day + '</option>');
                 </script>
                 <!-- 나머지 날짜들도 추가 -->
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
                 <option value="10">10</option>
                 <option value="11">11</option>
                 <option value="12">12</option>
@@ -228,7 +231,7 @@
                 }
             }
 
-            result = "따기\n" + pickList.join("\n") + "\n\n상담\n" + talkList.join("\n") + "\n\n상담예정\n" + willTalkList.join("\n") + "\n\n타겟찾기\n" + meetList.join("\n") + "\n"
+            result = "💚3팀 " + month + "." + day + "만남 건\n\n"+ "▫️따기\n" + pickList.join("\n") + "\n\n▫️상담\n" + talkList.join("\n") + "\n\n▫️상담예정\n" + willTalkList.join("\n") + "\n\n▫️타겟찾기\n" + meetList.join("\n") + "\n"
             document.getElementById("result_new").innerHTML = result;
         }
         
