@@ -14,59 +14,12 @@
     </div>
 
     <div class="tab">
-        <button class="tablinks active" onclick="openTab(event, 'home')">Leaf</button>
-        <button class="tablinks" onclick="openTab(event, 'about')">Meet</button>
+        <button class="tablinks active" onclick="openTab(event, 'home')">Meet</button>
     </div>
 
     <div id="home" class="tabcontent">
-        <div>
-            <p>1번</p>
-            <textarea id="area1"></textarea>
-        </div>
-        
-        <div>
-            <p>2번</p>
-            <textarea id="area2"></textarea>
-        </div>
-        
-        <div>    
-            <p>3번</p>
-            <textarea id="area3"></textarea>
-        </div>
-        
-        <div>
-            <p>4번</p>
-            <textarea id="area4"></textarea>
-        </div>
-        <div>
-            <p>5번</p>
-            <textarea id="area5"></textarea>
-        </div>
-        <div class="line10"></div>
-        <div class="button">
-            <label for="daySelect">요일 선택:</label>
-            <select id="daySelect">
-                <!-- 내일 요일을 옵션으로 추가 -->
-                <option value="일">일요일</option>
-                <option value="월">월요일</option>
-                <option value="화">화요일</option>
-                <option value="수">수요일</option>
-                <option value="목">목요일</option>
-                <option value="금">금요일</option>
-                <option value="토">토요일</option>
-            </select>
-            <button class="makeResult" onclick="add();">Make</button>
-        </div>
-        <div class="line10"></div>
-        <textarea id="result"></textarea>
-    </div>
-    
-
-    <div id="about" class="tabcontent">
-        <div>
-            <p>내용</p>
-            <textarea id="allText"></textarea>
-        </div>
+        <p>내용</p>
+        <textarea id="allText"></textarea>
         <div class="line10"></div>
         <div class="button">
             <label for="month">날짜:</label>
@@ -139,13 +92,17 @@
                 <option value="30">30</option>
                 <option value="31">31</option>
             </select>
-            
-                <button class="makeResult" onclick="makeOnlyMeetings();">Make</button>
-                <div class="line10"></div>
+            <label>
+                <input type='checkbox'
+                    id="nextDayChecked"
+                    checked
+                > 차차일 만남 출력
+            </label>
+            <div class="line10"></div>
+            <button class="makeResult" onclick="makeOnlyMeetings();">Make</button>
         </div>
-        <div>
-            <textarea id="result_new"></textarea>
-        </div>
+        <div class="line10"></div>
+        <textarea id="result_new"></textarea>
     </div>
     <script>
         document.getElementById('home').style.display = 'block';
@@ -170,34 +127,17 @@
             select.value = tomorrowDayOfWeek;
         }
 
-        function add() {
-            // var tomorrow_weekday = get_tmrw_weekday();
-            let tomorrow_weekday = document.getElementById("daySelect").value;
-
-            // var tomorrow_weekday = select_weekday.options[select_weekday.selectedIndex].value
-            let area1 = document.getElementById("area1").value;
-            let area2 = document.getElementById("area2").value;
-            let area3 = document.getElementById("area3").value;
-            let area4 = document.getElementById("area4").value;
-            let area5 = document.getElementById("area5").value;
-            //* area1.split(f"\n{tomorrow}")[1].split("\n\n")[0]
-            
-            var tmrw_area1_meeting = String(String(area1).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area2_meeting = String(String(area2).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area3_meeting = String(String(area3).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area4_meeting = String(String(area4).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-            var tmrw_area5_meeting = String(String(area5).split("\n"+tomorrow_weekday)[1]).split("\n\n")[0];
-            
-            document.getElementById("result").innerHTML = "✔️1구역" + tmrw_area1_meeting + "\n\n" + "✔️2구역" + tmrw_area2_meeting + "\n\n" + "✔️3구역" + tmrw_area3_meeting + "\n\n" + "✔️4구역" + tmrw_area4_meeting + "\n\n" + "✔️5구역" + tmrw_area5_meeting;
-            // document.getElementById("result").innerHTML = "hhhhh";
-        }
-
         function makeOnlyMeetings() {
             let allText = document.getElementById("allText").value;
-            let month = document.getElementById("month").value
-            let day = document.getElementById("day").value
-            let date = month + "." + day
+            let selectMonth = document.getElementById("month").value
 
+            let selectDay = document.getElementById("day").value
+            let selectDate = selectMonth + "." + selectDay
+            let selectNextDay = String(parseInt(selectDay) + 1);
+            let selectNextDate = selectMonth + "." + selectNextDay
+
+            var checkBox = document.getElementById('nextDayChecked');
+            var isCheckboxChecked = checkBox ? checkBox.checked : false;
 
             let targetText = String(allText).split("비오픈")[1]
             let pickFruit = String(String(String(targetText).split("따기")[1]).split("상담")[0]).split("\n")
@@ -210,31 +150,56 @@
             let willTalkList = []
             let meetList = []
 
-            for (let i = 0; i < pickFruit.length; i++) {
-                if (pickFruit[i].includes(String(date))) {
-                    pickList.push(pickFruit[i]);
-                }
-            }
-            for (let j = 0; j < talkFruit.length; j++) {
-                if (talkFruit[j].includes(String(date))) {
-                    talkList.push(talkFruit[j]);
-                }
-            }
-            for (let k = 0; k < willTalkFruit.length; k++) {
-                if (willTalkFruit[k].includes(String(date))) {
-                    willTalkList.push(willTalkFruit[k]);
-                }
-            }
-            for (let l = 0; l < meetFruit.length; l++) {
-                if (meetFruit[l].includes(String(date))) {
-                    meetList.push(meetFruit[l]);
-                }
-            }
+            let resultPickList = []
+            let resultTalkList = []
+            let resultWillTalkList = []
+            let resultMeetList = []
 
-            result = "💚3팀 " + month + "." + day + "만남 건\n\n"+ "▫️따기\n" + pickList.join("\n") + "\n\n▫️상담\n" + talkList.join("\n") + "\n\n▫️상담예정\n" + willTalkList.join("\n") + "\n\n▫️타겟찾기\n" + meetList.join("\n") + "\n"
+            var title = ""
+
+            pickList = getMeetList(pickFruit, selectDate)
+            talkList = getMeetList(talkFruit, selectDate)
+            willTalkList = getMeetList(willTalkFruit, selectDate)
+            meetList = getMeetList(meetFruit, selectDate)
+
+            if (isCheckboxChecked) {
+                let nextPickList = []
+                let nextTalkList = []
+                let nextWillTalkList = []
+                let nextMeetList = []
+
+                nextPickList = getMeetList(pickFruit, selectNextDate)
+                nextTalkList = getMeetList(talkFruit, selectNextDate)
+                nextWillTalkList = getMeetList(willTalkFruit, selectNextDate)
+                nextMeetList = getMeetList(meetFruit, selectNextDate)
+                title = "💚3팀 " + selectDate + "-" + selectNextDate + " 만남 건"
+                
+                resultPickList = pickList.concat(nextPickList)
+                resultTalkList = talkList.concat(nextTalkList)
+                resultWillTalkList = willTalkList.concat(nextWillTalkList)
+                resultMeetList = meetList.concat(nextMeetList)
+            }
+            else{
+                title = "💚3팀 " + selectNextDate + " 만남 건"
+                resultPickList = pickList
+                resultTalkList = talkList
+                resultWillTalkList = willTalkList
+                resultMeetList = meetList
+
+            }
+            
+            result = title + "\n\n"+ "▫️따기\n" + resultPickList.join("\n") + "\n\n▫️상담\n" + resultTalkList.join("\n") + "\n\n▫️상담예정\n" + resultWillTalkList.join("\n") + "\n\n▫️타겟찾기\n" + resultMeetList.join("\n") + "\n"
             document.getElementById("result_new").innerHTML = result;
         }
-        
+        function getMeetList(fruitList, date) {
+            meetList = []
+            for (let i = 0; i < fruitList.length; i++) {
+                if (fruitList[i].includes(String(date))) {
+                    meetList.push(fruitList[i]);
+                }
+            }
+            return meetList
+        }
         // 초기 탭 설정
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
